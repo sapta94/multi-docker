@@ -1,0 +1,33 @@
+version: '3'
+services:
+  postgres:
+    image: 'postgres:latest'
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '8080:80'
+  client:
+      build:
+        dockerfile: Dockerfile.dev
+        context: ./react-app-docker-integration
+      volumes:
+        - /app/node_modules
+        - ./react-app-docker-integration:/app
+      environment:
+        - TOKEN=33d91288c508e1bf94352896585a7576772645d5
+  worker:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./worker
+    volumes:
+      - /app/node_modules
+      - ./worker:/app
+    environment:
+      - POSTGRE_USER=postgres
+      - POSTGRE_HOST=postrges
+      - POSTGRE_DB=postgres
+      - POSTGRE_PASSWORD=postgres_password
+      - POSTGRE_PORT=5432
