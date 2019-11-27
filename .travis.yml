@@ -9,9 +9,9 @@ script:
   - docker run -e CI=true sapta94/myapp-test npm run test
 
 after_sucess:
-  - docker build -t sapta94/multi-client -f ./react-app-docker-integration
-  - docker build -t sapta94/multi-nginx -f ./nginx
-  - docker build -t sapta94/multi-worker -f ./worker
+  - docker build -t sapta94/multi-client  ./react-app-docker-integration
+  - docker build -t sapta94/multi-nginx  ./nginx
+  - docker build -t sapta94/multi-worker  ./worker
 
   # log in to docker cli
   - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
