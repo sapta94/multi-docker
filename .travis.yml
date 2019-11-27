@@ -13,15 +13,10 @@ after_sucess:
   - docker build -t sapta94/multi-nginx -f ./nginx
   - docker build -t sapta94/multi-worker -f ./worker
 
-deploy:
-  edge: true
-  provider: elasticbeanstalk
-  region: "ap-south-1"
-  app: "Docker-react"
-  env: "DockerReact-env"
-  bucket_name: "elasticbeanstalk-ap-south-1-349772406588"
-  bucket_path: "Docker-react"
-  on:
-    branch: master
-  access_key_id: $AWS_ACCESS_KEY  
-  secret_access_key: $AWS_SECRET_KEY
+  # log in to docker cli
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+  
+  #push images to docker hub
+  - docker push sapta94/multi-client
+  - docker push sapta94/multi-nginx
+  - docker push sapta94/multi-worker
