@@ -41,7 +41,10 @@ class Home extends Component {
                 if(ind==boxes.length-1){
                     this.setState({
                         pollutionData:respData
-
+                    },()=>{
+                        axios.get('/api/allRequests').then((resp)=>{
+                            console.log(resp)
+                        })
                     })
                 }
             }).catch(err=>{
@@ -52,7 +55,6 @@ class Home extends Component {
     }
     render() {
         var boxes = this.state.boxes
-        console.log(process.env)
         return (
             <div>
                 <div style={{margin:'10px'}} className='row'>
