@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const keys = require('./key.js')
 
 const app = express();
 
@@ -27,19 +28,22 @@ const pgClient = new Pool({
   password: keys.pgPassword,
   port: keys.pgPort
 });
+console.log('pg client ',pgClient)
 pgClient.on('error', () => console.log('Lost PG connection'));
 
-pgClient
-  .query('CREATE TABLE IF NOT EXISTS requests (id serial primary key,date_time varchar,cities varchar)')
-  .catch(err => console.log(err));
 
-pgClient
-  .query('CREATE TABLE IF NOT EXISTS request_data_mapping (id serial,request_id int4, aqi float8 ,city varchar)')
-  .catch(err => console.log(err));
 
 app.get('/allRequests',async (req,res)=>{
   var query = 'select * from requests'
   try{
+    await pgClient
+    .query('CREATE TABLE IF NOT EXISTS requests (id serial primary key,date_time varchar,cities varchar)')
+    .catch(err => console.log('error here ',err));
+
+    await pgClient
+    .query('CREATE TABLE IF NOT EXISTS request_data_mapping (id serial,request_id int4, aqi float8 ,city varchar)')
+    .catch(err => console.log(err));
+    
     const requests=await pgClient.query(query)
     return res.json({
       status:true,
