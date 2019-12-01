@@ -1,0 +1,30 @@
+{
+    "AWSDockerrunVersion":2,
+    "containerDefinations":[
+        {
+            "name":"client",
+            "image":"sapta94/multi-client",
+            "hostname":"client",
+            "essential":false
+        },
+        {
+            "name":"server",
+            "image":"sapta94/multi-worker",
+            "hostname":"api",
+            "essential":false
+        },
+        {
+            "name":"nginx",
+            "image":"sapta94/multi-nginx",
+            "hostname":"nginx",
+            "essential":true,
+            "portMappings":[
+                {
+                    "hostPort":80,
+                    "containerPort":80
+                }
+            ],
+            "links":["client","server"]
+        }
+    ]
+}
