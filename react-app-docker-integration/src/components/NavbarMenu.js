@@ -10,7 +10,7 @@ export default class NavbarMenu extends Component {
                 <Navbar.Brand href="#home">Pollution</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Nav.Link href="#home"><Link to='/'>Home</Link></Nav.Link>
-                    <Nav.Link href="#features">Recents</Nav.Link>
+                    <Nav.Link href="#features"><Link to='/recents'>Recents</Link></Nav.Link>
                     <Nav.Link href="#settings">Settings</Nav.Link>
                 </Nav>
             </Navbar>
