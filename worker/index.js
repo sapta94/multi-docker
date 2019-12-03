@@ -64,17 +64,18 @@ app.post('/insertRequest',async (req,res)=>{
   var aqi = req.body.aqi||null;
 
   try{
-    var query = `insert into requests(date_time,cities) values (${time},${cities}) returning id`
+    var query = `insert into requests(date_time,cities) values ('${time}','${cities}') returning id`
     const result=await pgClient.query(query)
     console.log('result is ',result)
-    var id = result[0].id
+    var id = result.rows[0].id
 
     var aqiarray=aqi.split(',')
     var cityarray = cities.split(',')
+    var queryArray=[]
     cityarray.forEach((item,index) => {
-      queryArray.push(`(${id},${aqiarray[index]},${item})`)
+      queryArray.push(`(${id},${aqiarray[index]},'${item}')`)
     });
-    query =`insert into request_id,aqi,city values ${queryArray.join(',')}`
+    query =`insert into request_data_mapping(request_id,aqi,city) values ${queryArray.join(',')}`
     await pgClient.query(query)
     return res.json({
       status:true,

@@ -5,7 +5,7 @@ services:
   nginx:
     restart: always
     build:
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
       context: ./nginx
     ports:
       - '8080:80'
@@ -27,7 +27,7 @@ services:
       - ./worker:/app
     environment:
       - POSTGRE_USER=postgres
-      - POSTGRE_HOST=postrges
+      - POSTGRE_HOST=postgres
       - POSTGRE_DB=postgres
       - POSTGRE_PASSWORD=postgres_password
       - POSTGRE_PORT=5432

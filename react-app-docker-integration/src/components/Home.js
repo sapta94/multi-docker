@@ -42,7 +42,16 @@ class Home extends Component {
                     this.setState({
                         pollutionData:respData
                     },()=>{
-                        axios.get('/api/allRequests').then((resp)=>{
+                        var data=this.state.pollutionData||[];
+                        var values=[]
+                        data.forEach((item,ind)=>{
+                            values.push(item.aqi)
+                        })
+                        axios.post('/api/insertRequest',{
+                            cities:boxes.join(','),
+                            time:respData[0].time.s,
+                            aqi:values.join(',')
+                        }).then((resp)=>{
                             console.log(resp)
                         })
                     })
