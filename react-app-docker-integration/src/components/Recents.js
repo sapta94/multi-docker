@@ -19,6 +19,9 @@ export default class Recents extends Component {
             alert('error in fetching data!')
         })
     }
+    plotData=(id)=>{
+        window.open('/?requestID='+id)
+    }
     render() {
         return (
             <div>
@@ -37,12 +40,11 @@ export default class Recents extends Component {
                                                     item.cities
                                                 }
                                             </Card.Text>
-                                            <Card.Link href="#">See Results</Card.Link>
+                                            <Card.Link onClick={()=>this.plotData(item.id)}>See Results</Card.Link>
                                         </Card.Body>
                                     </Card>
                                 </div>
                             )
-                            
                         })
                     }
                 </div>
