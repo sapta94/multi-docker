@@ -58,6 +58,22 @@ app.get('/allRequests',async (req,res)=>{
   }
 })
 
+app.get('/dataById',async (req,res)=>{
+  var requestId = req.query.requestId||null;
+  if(!requestId){
+    return res.status(422).json({
+      message:'missing paramters'
+    })
+  }
+
+  var query='select * from request_data_mapping  where request_id='+requestId
+  const requestData = await pgClient.query(query)
+  return res.json({
+    status:true,
+    data:requestData
+  })
+})
+
 app.post('/insertRequest',async (req,res)=>{
   var time=req.body.time||null;
   var cities = req.body.cities||null;
