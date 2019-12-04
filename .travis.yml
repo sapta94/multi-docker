@@ -20,3 +20,15 @@ after_sucess:
   - docker push sapta94/multi-client
   - docker push sapta94/multi-nginx
   - docker push sapta94/multi-worker
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+  region: "ap-south-1"
+  app: "multi-docker"
+  env: "MultiDocker-env"
+  bucket_name: "elasticbeanstalk-ap-south-1-349772406588"
+  bucket_path: "multi-docker"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY  
+  secret_access_key: $AWS_SECRET_KEY
