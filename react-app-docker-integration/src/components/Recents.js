@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import {Card} from 'react-bootstrap'
+import {Card,Button} from 'react-bootstrap'
 
 export default class Recents extends Component {
     constructor(props){
@@ -40,7 +40,8 @@ export default class Recents extends Component {
                                                     item.cities
                                                 }
                                             </Card.Text>
-                                            <Card.Link onClick={()=>this.plotData(item.id)}>See Results</Card.Link>
+                                            <Button onClick={()=>this.plotData(item.id)} variant='primary'>See Results</Button>
+                                            {/* <Card.Link style={{cursor:'pointer'}} onClick={()=>this.plotData(item.id)}>See Results</Card.Link> */}
                                         </Card.Body>
                                     </Card>
                                 </div>
