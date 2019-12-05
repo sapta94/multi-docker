@@ -19,8 +19,8 @@ export default class Recents extends Component {
             alert('error in fetching data!')
         })
     }
-    plotData=(id)=>{
-        window.open('/?requestID='+id)
+    plotData=(id,cities)=>{
+        window.open('/?requestID='+id+'&cities='+cities)
     }
     render() {
         return (
@@ -40,7 +40,7 @@ export default class Recents extends Component {
                                                     item.cities
                                                 }
                                             </Card.Text>
-                                            <Button onClick={()=>this.plotData(item.id)} variant='primary'>See Results</Button>
+                                            <Button onClick={()=>this.plotData(item.id,item.cities)} variant='primary'>See Results</Button>
                                             {/* <Card.Link style={{cursor:'pointer'}} onClick={()=>this.plotData(item.id)}>See Results</Card.Link> */}
                                         </Card.Body>
                                     </Card>

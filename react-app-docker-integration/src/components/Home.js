@@ -31,7 +31,7 @@ class Home extends Component {
         if(window.location.href.includes('?'))
             if(getParamValue('requestID')){
                 axios.get('/api/databyId?requestId='+getParamValue('requestID')).then(resp=>{
-                    this.setState({pollutionData:resp.data.data.rows})
+                    this.setState({pollutionData:resp.data.data.rows,boxes:getParamValue('cities').split(',')})
                 })
             }
     }
