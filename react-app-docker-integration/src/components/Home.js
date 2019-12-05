@@ -5,6 +5,19 @@ import axios from 'axios'
 import ChartView from "./chart-view"
 
 
+function getParamValue(paramName){
+    var url = (window.location.href).split('?')[1]
+    var val=null;
+    var paramsArray = url.split('&')
+    paramsArray.forEach((item)=>{
+      if(item.split('=')[0]===paramName){
+        val = item.split('=')[1]
+        return 
+      }
+    })
+    return val
+  }
+
 
 class Home extends Component {
     constructor(props) {
@@ -13,6 +26,14 @@ class Home extends Component {
             boxes:['',''],
             pollutionData:[]
         };
+    }
+    componentDidMount(){
+        if(window.location.href.includes('?'))
+            if(getParamValue('requestID')){
+                axios.get('/api/databyId?requestId='+getParamValue('requestID')).then(resp=>{
+                    this.setState({pollutionData:resp.data.data.rows})
+                })
+            }
     }
     changeValue=(e,index)=>{
         let val = e.target.value;

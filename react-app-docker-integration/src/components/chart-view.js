@@ -31,7 +31,8 @@ class ChartView extends Component {
         var data=this.props.pollutionData||[];
         var values=[],lables=[]
         data.forEach((item,ind)=>{
-            lables.push((item.city.name).split(' ')[0])
+            let cityName = item.city.name||item.city
+            lables.push((cityName).split(' ')[0])
             values.push(item.aqi)
         })
         let graphData={}
